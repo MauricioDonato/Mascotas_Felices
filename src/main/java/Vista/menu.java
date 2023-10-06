@@ -118,7 +118,8 @@ public class menu extends javax.swing.JFrame {
 
     private void btncrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncrearActionPerformed
         // TODO add your handling code here:
-     
+       CrearHora frm = new CrearHora();
+       frm.setVisible(true);
 
     }//GEN-LAST:event_btncrearActionPerformed
 
