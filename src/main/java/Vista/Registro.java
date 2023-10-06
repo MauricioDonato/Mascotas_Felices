@@ -145,7 +145,8 @@ public class Registro extends javax.swing.JFrame {
         String valor = cm.buscarPorRut(Rut);
          if(Rut.equalsIgnoreCase(valor) )
             {
-               
+                menu frm = new  menu ();
+                frm.setVisible(true);
             }
          else{
             JOptionPane.showMessageDialog(this, "Datos Incorrecto");
