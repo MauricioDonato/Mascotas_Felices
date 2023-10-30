@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  *
  * @author mauri
+ *   Esta es la modelo de Asistente
  */
 public class Motivo {
      @SerializedName("url")

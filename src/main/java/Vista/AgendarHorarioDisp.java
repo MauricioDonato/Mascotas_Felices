@@ -1,0 +1,480 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package Vista;
+
+import Controlador.Controlador;
+import Controlador.Horario;
+import Controlador.Motivo;
+import Controlador.Sucursal;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.util.List;
+import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+/**
+ *Esta es la vista de Agendar hora disp
+ *  
+ * @author mauri
+ */
+public class AgendarHorarioDisp extends javax.swing.JFrame {
+    String valorid;
+    List<String> Motivo_v = new ArrayList<>();
+    String veterinario_a = null;
+    String sucursal_a = null;
+  
+    /**
+     * Creates new form AgendarHorarioDisp
+     */
+    public AgendarHorarioDisp(String valor1) {
+        Controlador cm = new Controlador();
+        String url = "https://davydvat.pythonanywhere.com/atencion/"+ valor1;
+        valorid = valor1;
+        String token = "4432703a71447984770c315364a7848f7d69bcc9";
+        Horario hora = null;
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            HttpGet httpGet = new HttpGet(url);
+
+            // Agregar el encabezado de autenticación con el token
+            httpGet.setHeader("Authorization", "Token " + token);
+
+            // Enviar la solicitud y obtener la respuesta
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                HttpEntity entity = response.getEntity();
+                if (entity != null) {
+                    String responseBody = EntityUtils.toString(entity);
+                    
+          
+
+                    // Parsear el JSON utilizando Gson
+                    Gson gson = new Gson();
+                    
+                    
+                    // Imprimir las variables
+                    hora = gson.fromJson(responseBody, Horario.class);
+                    
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String url2 = "https://davydvat.pythonanywhere.com/procedimiento/"; try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            HttpGet httpGet = new HttpGet(url2);
+
+            // Agregar el encabezado de autenticación con el token
+            httpGet.setHeader("Authorization", "Token " + token);
+
+            // Enviar la solicitud y obtener la respuesta
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                HttpEntity entity = response.getEntity();
+                if (entity != null) {
+                    String responseBody = EntityUtils.toString(entity);
+                    Gson gson1 = new Gson();
+                 java.lang.reflect.Type listType = new TypeToken<List<Motivo>>() {}.getType();
+                List<Motivo> listaMotivo = gson1.fromJson(responseBody, listType);
+                Motivo_v.add("Motivo");
+                for (Motivo inscripcion : listaMotivo) {
+
+                    Motivo_v.add(inscripcion.getNombre_proc());
+               
+                    // Agrega aquí más campos según la estructura de tu objeto JSON
+                
+                }
+                  
+                 
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+
+       
+        
+        veterinario_a = hora.getRut_vet();
+        sucursal_a = hora.getSucursal();
+        initComponents();
+        txtFecha.setText(hora.getFecha());
+        txtHora.setText(hora.getHora()); 
+        String carga = null;
+        
+        for (String Motivo_v1 : Motivo_v) {
+            cbMotivo.addItem(Motivo_v1);
+        }
+       
+    }
+   
+
+    private AgendarHorarioDisp() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtFecha = new javax.swing.JTextField();
+        txtHora = new javax.swing.JTextField();
+        txtRut = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
+        btnReservar = new javax.swing.JButton();
+        cbMotivo = new javax.swing.JComboBox<>();
+        btnVolver = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Reservar");
+
+        jLabel2.setText("Fecha:");
+
+        jLabel3.setText("Hora:");
+
+        jLabel4.setText("Nombre Cliente:");
+
+        jLabel5.setText("Rut Cliente:");
+
+        jLabel6.setText("Correo Cliente:");
+
+        jLabel7.setText("Telefono Cliente:");
+
+        jLabel8.setText("Motivo:");
+
+        txtFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFechaActionPerformed(evt);
+            }
+        });
+
+        btnReservar.setText("Reservar");
+        btnReservar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReservarActionPerformed(evt);
+            }
+        });
+
+        cbMotivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbMotivoActionPerformed(evt);
+            }
+        });
+
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(310, 310, 310)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(213, 213, 213)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(235, 235, 235)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnVolver)
+                            .addComponent(btnReservar)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(112, 112, 112)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(42, 42, 42))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel4))
+                                .addGap(34, 34, 34)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(297, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(cbMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(btnReservar)
+                .addGap(18, 18, 18)
+                .addComponent(btnVolver)
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaActionPerformed
+
+    private void cbMotivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMotivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMotivoActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        menu frm = new  menu ();
+        frm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
+        // TODO add your handling code here:
+        String moti =  (String) cbMotivo.getSelectedItem();
+     
+        String hora = txtHora.getText();
+        String nombre_cli = txtNombre.getText();
+        String rut = txtRut.getText();
+        String telefono = txtTelefono.getText();
+        String correo = txtCorreo.getText();
+        if(rut.trim().length() == 0 || telefono.trim().length() == 0 || nombre_cli.trim().length() == 0  || correo.trim().length() == 0 || moti == "Motivo" )
+        {
+            JOptionPane.showMessageDialog(this, "Ingrese los datos solicitados");
+            return;
+        }
+        else{
+        Controlador cm = new Controlador();
+        boolean esValido = cm.validarRut(txtRut.getText());
+        if(esValido == false){
+             JOptionPane.showMessageDialog(this, "Error en Ingreso de rut");
+             return;
+        }
+        String nom_vet = cm.Nombre_vet(veterinario_a);
+        String nom_suc = cm.Nombre_suc(sucursal_a);
+        String url = "https://davydvat.pythonanywhere.com/atencion/"+ valorid+"/"; 
+        String fechaOriginal = txtFecha.getText();
+        
+        // Definir el formato de entrada (año/mes/día)
+        SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd");
+        
+        // Definir el formato de salida (día/mes/año)
+        SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd-MM-yy");
+        String fechaInvertida = null;
+        try {
+            // Parsear la fecha original al formato de fecha
+            Date fecha = formatoEntrada.parse(fechaOriginal);
+            
+            // Formatear la fecha en el nuevo formato
+            fechaInvertida = formatoSalida.format(fecha);
+            
+            // Imprimir la fecha invertida
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String token = "4432703a71447984770c315364a7848f7d69bcc9";
+            String fecha = fechaInvertida;
+        
+        
+        // Datos que deseas enviar en el cuerpo de la solicitud (por ejemplo, un JSON)
+        String jsonBody = "{"
+            + "\"fecha\":\"" + fechaInvertida +"\","
+            + "\"hora\":\""+ hora +"\","
+            + "\"estado\":\"Ocupado\","
+            + "\"rut_cli\":\""+ rut +"\","
+            + "\"nombre_cli\":\""+ nombre_cli +"\","
+            + "\"telefono_cli\":\""+ telefono +"\","
+            + "\"correo_cli\":\""+ correo +"\","
+            + "\"motivo\":\""+ moti+"\","
+            + "\"rut_vet\":\""+ veterinario_a +"\","
+            + "\"sucursal\":\""+ sucursal_a +"\""
+            + "}";
+
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            // Crear una solicitud PUT
+            HttpPut httpPut = new HttpPut(url);
+            httpPut.setHeader("Content-Type", "application/json; charset=UTF-8");
+
+            // Agregar el token de autenticación en el encabezado
+            httpPut.setHeader("Authorization", "Token " + token);
+
+            // Configurar el cuerpo de la solicitud con los datos
+            StringEntity requestEntity = new StringEntity(jsonBody,"UTF-8");
+            httpPut.setEntity(requestEntity);
+
+            // Ejecutar la solicitud PUT y obtener la respuesta
+            HttpResponse response = httpClient.execute(httpPut);
+            HttpEntity responseEntity = response.getEntity();
+
+            // Procesar la respuesta
+         
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String url2 = "https://davydvat.pythonanywhere.com/correo/agendar_hora/"; 
+        String jsonBody2 = "{"
+            + "\"nombre\":\"" + nombre_cli +"\","
+            + "\"fecha\":\""+ txtFecha.getText() +"\","
+            + "\"hora\":\""+ hora+"\","
+            + "\"veterinario\":\""+ nom_vet +"\","
+            + "\"sucursal\":\""+ nom_suc +"\","
+            + "\"telefono\":\""+ telefono +"\","
+            + "\"correo\":\""+ correo +"\""
+            + "}";
+
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            // Crear una solicitud PUT
+            HttpPost httpPost = new HttpPost(url2);
+            httpPost.setHeader("Content-Type", "application/json");
+
+            // Agregar el token de autenticación en el encabezado
+            httpPost.setHeader("Authorization", "Token " + token);
+
+            // Configurar el cuerpo de la solicitud con los datos
+            StringEntity requestEntity = new StringEntity(jsonBody2);
+            httpPost.setEntity(requestEntity);
+
+            // Ejecutar la solicitud PUT y obtener la respuesta
+            HttpResponse response = httpClient.execute(httpPost);
+            HttpEntity responseEntity = response.getEntity();
+
+            // Procesar la respuesta
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        }
+        
+    }//GEN-LAST:event_btnReservarActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(AgendarHorarioDisp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AgendarHorarioDisp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AgendarHorarioDisp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AgendarHorarioDisp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AgendarHorarioDisp().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnReservar;
+    private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> cbMotivo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtFecha;
+    private javax.swing.JTextField txtHora;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtRut;
+    private javax.swing.JTextField txtTelefono;
+    // End of variables declaration//GEN-END:variables
+}

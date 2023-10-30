@@ -18,6 +18,7 @@ import java.net.URL;
 /**
  *
  * @author mauri
+ * Esta es la vista de registro
  */
 public class Registro extends javax.swing.JFrame {
 
@@ -37,96 +38,81 @@ public class Registro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtrut = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        txtRut = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        ingresar = new javax.swing.JButton();
         txtpassword = new javax.swing.JPasswordField();
-        btnsalir = new javax.swing.JButton();
+        btnIngresar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Ingresar Credenciales");
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel1.setAutoscrolls(true);
+        jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        txtrut.addActionListener(new java.awt.event.ActionListener() {
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Rut:");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 37, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel2.setText("Ingrese su Credenciales");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 380, 52));
+        jPanel2.add(txtRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 175, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setText("Contraseña:");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
+        jPanel2.add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 175, -1));
+
+        btnIngresar.setBackground(new java.awt.Color(153, 255, 153));
+        btnIngresar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtrutActionPerformed(evt);
+                btnIngresarActionPerformed(evt);
             }
         });
+        jPanel2.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 290, -1, -1));
 
-        jLabel2.setText("Nombre :");
-
-        jLabel3.setText("Contraseña :");
-
-        ingresar.setText("Ingresar");
-        ingresar.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setBackground(new java.awt.Color(255, 153, 153));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ingresarActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 81, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, -1, 40));
 
-        btnsalir.setText("Salir");
-        btnsalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnsalirActionPerformed(evt);
-            }
-        });
+        jPanel1.add(jPanel2, new java.awt.GridBagConstraints());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(153, 153, 153)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtrut, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(303, 303, 303)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnsalir)
-                            .addComponent(ingresar))))
-                .addContainerGap(285, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtrut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80)
-                .addComponent(ingresar)
-                .addGap(35, 35, 35)
-                .addComponent(btnsalir)
-                .addContainerGap(123, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtrutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtrutActionPerformed
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtrutActionPerformed
-
-    private void ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarActionPerformed
-        // TODO add your handling code here:
+          // TODO add your handling code here:
    
-        String Rut= txtrut.getText();
+        String Rut= txtRut.getText();
         String contra = txtpassword.getText();  
         Controlador cm = new Controlador();
         
@@ -142,29 +128,25 @@ public class Registro extends javax.swing.JFrame {
             return;
         }
        
-        String valor = cm.buscarPorRut(Rut);
-         if(Rut.equalsIgnoreCase(valor) )
+        String valor = cm.Validar(Rut, contra);
+        String respuesta = "\"Asistente Correcta\"";
+         if(respuesta.equals(valor))
             {
                 menu frm = new  menu ();
                 frm.setVisible(true);
+              
+                this.dispose();
             }
          else{
-            JOptionPane.showMessageDialog(this, "Datos Incorrecto");
+            JOptionPane.showMessageDialog(this, "Datos Incorrecto" );
          }
     
-        
-           
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
-    
-       
-
-   
-    
-    }//GEN-LAST:event_ingresarActionPerformed
-
-    private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnsalirActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+           this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,12 +184,15 @@ public class Registro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnsalir;
-    private javax.swing.JButton ingresar;
+    private javax.swing.JButton btnIngresar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField txtRut;
     private javax.swing.JPasswordField txtpassword;
-    private javax.swing.JTextField txtrut;
     // End of variables declaration//GEN-END:variables
 }

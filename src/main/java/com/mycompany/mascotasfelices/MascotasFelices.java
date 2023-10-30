@@ -4,6 +4,8 @@
 
 package com.mycompany.mascotasfelices;
 
+import Vista.Registro;
+
 /**
  *
  * @author mauri
@@ -11,6 +13,8 @@ package com.mycompany.mascotasfelices;
 public class MascotasFelices {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+       Registro reg = new Registro();
+       reg.setVisible(true);
+       reg.setLocationRelativeTo(null);
     }
 }

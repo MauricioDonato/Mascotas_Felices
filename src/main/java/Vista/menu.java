@@ -7,6 +7,7 @@ package Vista;
 /**
  *
  * @author mauri
+ * Esta es la vista de Agendar hora
  */
 public class menu extends javax.swing.JFrame {
 

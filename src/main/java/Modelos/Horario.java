@@ -7,6 +7,7 @@ package Controlador;
 /**
  *
  * @author mauri
+ * Esta es la modelo de Asistente
  */
 public class Horario {    private String url;
     private String id_hora;
