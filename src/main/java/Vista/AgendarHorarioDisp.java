@@ -4,10 +4,10 @@
  */
 package Vista;
 
-import Controlador.Controlador;
-import Controlador.Horario;
-import Controlador.Motivo;
-import Controlador.Sucursal;
+import Controlador.Controladorasistente;
+import Modelo.Horario;
+import Modelo.Motivo;
+import Modelo.Sucursal;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.util.List;
@@ -46,7 +46,7 @@ public class AgendarHorarioDisp extends javax.swing.JFrame {
      * Creates new form AgendarHorarioDisp
      */
     public AgendarHorarioDisp(String valor1) {
-        Controlador cm = new Controlador();
+        Controladorasistente cm = new Controladorasistente();
         String url = "https://davydvat.pythonanywhere.com/atencion/"+ valor1;
         valorid = valor1;
         String token = "4432703a71447984770c315364a7848f7d69bcc9";
@@ -62,15 +62,8 @@ public class AgendarHorarioDisp extends javax.swing.JFrame {
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
                     String responseBody = EntityUtils.toString(entity);
-                    
-          
-
-                    // Parsear el JSON utilizando Gson
                     Gson gson = new Gson();
-                    
-                    
-                    // Imprimir las variables
-                    hora = gson.fromJson(responseBody, Horario.class);
+                 hora = gson.fromJson(responseBody, Horario.class);
                     
                 }
             }
@@ -94,25 +87,16 @@ public class AgendarHorarioDisp extends javax.swing.JFrame {
                 List<Motivo> listaMotivo = gson1.fromJson(responseBody, listType);
                 Motivo_v.add("Motivo");
                 for (Motivo inscripcion : listaMotivo) {
-
-                    Motivo_v.add(inscripcion.getNombre_proc());
+                  Motivo_v.add(inscripcion.getNombre_proc());
                
-                    // Agrega aquí más campos según la estructura de tu objeto JSON
-                
                 }
-                  
-                 
                 }
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-
-       
-        
-        veterinario_a = hora.getRut_vet();
+     veterinario_a = hora.getRut_vet();
         sucursal_a = hora.getSucursal();
         initComponents();
         txtFecha.setText(hora.getFecha());
@@ -305,7 +289,7 @@ public class AgendarHorarioDisp extends javax.swing.JFrame {
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
         // TODO add your handling code here:
         String moti =  (String) cbMotivo.getSelectedItem();
-     
+   
         String hora = txtHora.getText();
         String nombre_cli = txtNombre.getText();
         String rut = txtRut.getText();
@@ -317,7 +301,7 @@ public class AgendarHorarioDisp extends javax.swing.JFrame {
             return;
         }
         else{
-        Controlador cm = new Controlador();
+        Controladorasistente cm = new Controladorasistente();
         boolean esValido = cm.validarRut(txtRut.getText());
         if(esValido == false){
              JOptionPane.showMessageDialog(this, "Error en Ingreso de rut");
@@ -413,11 +397,12 @@ public class AgendarHorarioDisp extends javax.swing.JFrame {
             HttpResponse response = httpClient.execute(httpPost);
             HttpEntity responseEntity = response.getEntity();
 
-            // Procesar la respuesta
-           
+           JOptionPane.showMessageDialog(this, "Hora agendada");
+  
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
         }
         
     }//GEN-LAST:event_btnReservarActionPerformed
@@ -447,7 +432,6 @@ public class AgendarHorarioDisp extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(AgendarHorarioDisp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

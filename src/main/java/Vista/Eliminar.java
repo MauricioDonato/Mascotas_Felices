@@ -4,6 +4,11 @@
  */
 package Vista;
 
+/**
+ *Esta es la vista de eliminar hora asis
+ * @author mauri
+ */
+
 import Controlador.Controladorasistente;
 import Modelo.Horario;
 import com.google.gson.Gson;
@@ -13,31 +18,26 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.util.EntityUtils;
-
-/**
- *Esta es la vista de Agendar hora
- * @author mauri
- */
-public class AgendarHora extends javax.swing.JFrame {
+public class Eliminar extends javax.swing.JFrame {
 
     /**
-     * Creates new form AgendarHora
+     * Creates new form Eliminar
      */
-    public AgendarHora() {
+    public Eliminar() {
         initComponents();
     }
 
@@ -52,12 +52,12 @@ public class AgendarHora extends javax.swing.JFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         tblListado = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,10 +82,6 @@ public class AgendarHora extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblListado);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel2.setText("Disponibilidad");
-
-        btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,28 +89,22 @@ public class AgendarHora extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Reservar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Eliminar");
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("ID Reserva:");
+        jLabel2.setText("Id Reserva:");
 
-        txtId.addActionListener(new java.awt.event.ActionListener() {
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdActionPerformed(evt);
-            }
-        });
-
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Volver");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnVolverActionPerformed(evt);
             }
         });
 
@@ -122,49 +112,52 @@ public class AgendarHora extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(331, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(361, 361, 361))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(184, 184, 184)
-                .addComponent(btnBuscar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jButton1)
-                .addGap(42, 42, 42))
             .addGroup(layout.createSequentialGroup()
-                .addGap(380, 380, 380)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(btnBuscar)
+                        .addGap(104, 104, 104)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(btnEliminar)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(271, 271, 271)
+                .addComponent(btnVolver)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(36, 36, 36)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar)
-                    .addComponent(jButton1))
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar)
+                    .addComponent(jLabel2))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVolver)
+                .addGap(12, 12, 12))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-
+        // TODO add your handling code here:
         String url = "https://davydvat.pythonanywhere.com/atencion";
         String token = "4432703a71447984770c315364a7848f7d69bcc9";
         DefaultTableModel modelo = (DefaultTableModel) tblListado.getModel();
@@ -191,45 +184,57 @@ public class AgendarHora extends javax.swing.JFrame {
                 List<Horario> listaHorarios = gson.fromJson(responseBody, listType);
 
                 // Ahora tienes la lista de objetos en 'tuObjetos' para trabajar con ellos
-                
+               
                  for (Horario inscripcion : listaHorarios) {
                 Controladorasistente cm = new Controladorasistente();
-                if("Disponible".equals(inscripcion.getEstado())){
-                String valor = cm.valor_rut(inscripcion.getRut_vet());
                
+                String valor = cm.valor_rut(inscripcion.getRut_vet());
                 String valor_sucursal = cm.valor_sucursal(inscripcion.getSucursal());
                 modelo.addRow(new Object[]{inscripcion.getId_hora(), inscripcion.getFecha(),inscripcion.getHora(), inscripcion.getEstado(),inscripcion.getRut_cli(),inscripcion.getNombre_cli(),inscripcion.getCorreo_cli(),inscripcion.getTelefono_cli(),valor, valor_sucursal});
-               
-          
+           
+                    // Agrega aquí más campos según la estructura de tu objeto JSON
+                
                 }
-                }
+        
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if("".equals(txtId.getText())){
-            JOptionPane.showMessageDialog(this, "Ingrese un ID");
-            return  ;
-        }
-        Controladorasistente cm = new Controladorasistente();
-        String url = "https://davydvat.pythonanywhere.com/atencion/"+ txtId.getText();
-        
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        String Id= txtId.getText();
+             long tInicio = System.currentTimeMillis();
+          String url = "https://davydvat.pythonanywhere.com/atencion/" + Id + "/";
         String token = "4432703a71447984770c315364a7848f7d69bcc9";
-        Horario hora = null;
+        
+         Horario hora = null;
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpGet httpGet = new HttpGet(url);
 
             // Agregar el encabezado de autenticación con el token
             httpGet.setHeader("Authorization", "Token " + token);
+            HttpResponse res = httpClient.execute(httpGet);
+            int statusCode = res.getStatusLine().getStatusCode();
+
+            if (statusCode == 404) {
+                JOptionPane.showMessageDialog(this, "Error en Ingreso de datos");
+            }
 
             // Enviar la solicitud y obtener la respuesta
             try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
                     String responseBody = EntityUtils.toString(entity);
-                   Gson gson = new Gson();
+                    
+          
+
+                    // Parsear el JSON utilizando Gson
+                    Gson gson = new Gson();
+                    
+                    
+                    // Imprimir las variables
                     hora = gson.fromJson(responseBody, Horario.class);
                     
                 }
@@ -237,78 +242,71 @@ public class AgendarHora extends javax.swing.JFrame {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }  String fechaOriginal = hora.getFecha();
-        
-        // Definir el formato de entrada (año/mes/día)
-        SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd");
-        
-        // Definir el formato de salida (día/mes/año)
-        SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd-MM-yy");
-        String fechaInvertida = null;
-        try {
-            // Parsear la fecha original al formato de fecha
-            Date fecha = formatoEntrada.parse(fechaOriginal);
-            
-            // Formatear la fecha en el nuevo formato
-            fechaInvertida = formatoSalida.format(fecha);
-            
-            // Imprimir la fecha invertida
-        
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        
-        String rut = "https://davydvat.pythonanywhere.com/veterinario/13956115-5/";
-        String url2 = "https://davydvat.pythonanywhere.com/atencion/"+ txtId.getText()+"/";
-         String jsonBody = "{"
-            + "\"fecha\":\"" + fechaInvertida +"\","
-            + "\"hora\":\""+ hora.getHora() +"\","
-            + "\"estado\":\"Pendiente\","
-            + "\"rut_cli\":\"\","
-            + "\"nombre_cli\":\"\","
-            + "\"telefono_cli\":\"\","
-            + "\"correo_cli\":\"\","
-            + "\"motivo\":\"\","
-            + "\"rut_vet\":\""+ rut +"\","
-            + "\"sucursal\":\"" + hora.getSucursal() + "\""
+        Controladorasistente cm = new Controladorasistente();
+        String nom_vet = cm.Nombre_vet(hora.getRut_vet());
+        String nom_suc = cm.Nombre_suc(hora.getSucursal());
+        if(hora.getCorreo_cli() != null){
+        String url2 = "https://davydvat.pythonanywhere.com/correo/veterinario_cancelar/"; 
+        String jsonBody2 = "{"
+            + "\"nombre\":\"" + hora.getNombre_cli() +"\","
+            + "\"fecha\":\""+ hora.getFecha() +"\","
+            + "\"hora\":\""+ hora.getHora()+"\","
+            + "\"veterinario\":\""+ nom_vet +"\","
+            + "\"sucursal\":\""+ nom_suc +"\","
+            + "\"telefono\":\""+ hora.getTelefono_cli() +"\","
+            + "\"correo\":\""+ hora.getCorreo_cli() +"\""
             + "}";
-     try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-            // Crear una solicitud PUT
-            HttpPut httpPut = new HttpPut(url2);
-            httpPut.setHeader("Content-Type", "application/json");
 
-            // Agregar el token de autenticación en el encabezado
-            httpPut.setHeader("Authorization", "Token " + token);
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+          
+            HttpPost httpPost = new HttpPost(url2);
+            httpPost.setHeader("Content-Type", "application/json");
 
-            // Configurar el cuerpo de la solicitud con los datos
-            StringEntity requestEntity = new StringEntity(jsonBody);
-            httpPut.setEntity(requestEntity);
+          
+            httpPost.setHeader("Authorization", "Token " + token);
 
-            // Ejecutar la solicitud PUT y obtener la respuesta
-            HttpResponse response = httpClient.execute(httpPut);
+            StringEntity requestEntity = new StringEntity(jsonBody2);
+            httpPost.setEntity(requestEntity);
+
+            HttpResponse response = httpClient.execute(httpPost);
             HttpEntity responseEntity = response.getEntity();
 
-            // Procesar la respuesta
-            
+           
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        String valor = txtId.getText();
-       AgendarHorarioDisp frm = new  AgendarHorarioDisp(valor);
-       frm.setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        }
+        try (CloseableHttpClient httpClient = HttpClients.custom()
+                .setRedirectStrategy(new LaxRedirectStrategy()) 
+                .build()) {
 
-    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
+            HttpDelete httpDelete = new HttpDelete(url);
+
+            httpDelete.setHeader("Authorization", "Token " + token);
+
+            HttpResponse response = httpClient.execute(httpDelete);
+
+            int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode == 204) {
+   
+                  JOptionPane.showMessageDialog(this, "Reserva Eliminada");
+            
+            } else {
+               
+                 JOptionPane.showMessageDialog(this, "Error en Ingreso de datos");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       menu frm = new  menu();
-       frm.setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+        menu frm = new  menu ();
+        frm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -327,30 +325,30 @@ public class AgendarHora extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AgendarHora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Eliminar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AgendarHora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Eliminar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AgendarHora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Eliminar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AgendarHora.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Eliminar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AgendarHora().setVisible(true);
+                new Eliminar().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnVolver;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblListado;
     private javax.swing.JTextField txtId;

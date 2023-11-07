@@ -4,11 +4,9 @@
  */
 package Vista;
 
-import Controlador.Controlador;
-
-import Controlador.Motivo;
-import Controlador.Sucursal;
-import Controlador.Veterinario;
+import Controlador.Controladorasistente;
+import Modelo.Sucursal;
+import Modelo.Veterinario;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
@@ -26,7 +24,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 /**
- *Esta es la vista de Crear Hora
+ *Esta es la vista de crear hora
  * @author mauri
  */
 public class CrearHora extends javax.swing.JFrame {
@@ -56,7 +54,7 @@ public class CrearHora extends javax.swing.JFrame {
                 Sucursal_v.add("Sucursal");
                 for (Sucursal suc : listaSucursal) {
                     
-                        Sucursal_v.add(suc.getNombre_suc()+ " / "+ suc.getDirec_suc());
+                        Sucursal_v.add(suc.getNombre_suc());
                     
                 }
                   
@@ -86,11 +84,7 @@ public class CrearHora extends javax.swing.JFrame {
                 for (Veterinario inscripcion : listaVeterinario) {
                     if("Activo".equals(inscripcion.getEstadoVet())){
                     Veterinario_v.add(inscripcion.getNombreVet());
-                    }
-                    
-                    // Agrega aquí más campos según la estructura de tu objeto JSON
-                
-                }
+                    }        }
                   
                  
                 }
@@ -116,30 +110,28 @@ public class CrearHora extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jFrame1 = new javax.swing.JFrame();
         jFrame2 = new javax.swing.JFrame();
         jFrame3 = new javax.swing.JFrame();
-        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtDia = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        cbVeterinario = new javax.swing.JComboBox<>();
         txtAnnos = new javax.swing.JTextField();
-        cbSucursal = new javax.swing.JComboBox<>();
         txtMes = new javax.swing.JTextField();
-        btnVolver = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtHora = new javax.swing.JTextField();
         txtMinuto = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txtDia = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        cbVeterinario = new javax.swing.JComboBox<>();
+        cbSucursal = new javax.swing.JComboBox<>();
+        btnVolver = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -176,17 +168,47 @@ public class CrearHora extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setLayout(new java.awt.GridBagLayout());
+        jLabel1.setText("Ingresar Hora Nueva");
+
+        jLabel2.setText("Fecha:");
+
+        txtDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDiaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("/");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 8;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 2, 0, 0);
-        jPanel1.add(jLabel3, gridBagConstraints);
+
+        jLabel4.setText("/");
+
+        txtAnnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAnnosActionPerformed(evt);
+            }
+        });
+
+        txtMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMesActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Dia          Mes            Año");
+
+        jLabel6.setText("Hora :");
+
+        txtHora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtHoraActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText(":");
+
+        jLabel8.setText("Rut Veterinario :");
+
+        jLabel9.setText("Sucursal :");
 
         jButton1.setText("Ingresar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -194,71 +216,6 @@ public class CrearHora extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 12;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(39, 7, 0, 0);
-        jPanel1.add(jButton1, gridBagConstraints);
-
-        jLabel4.setText("/");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.ipadx = 9;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 10, 0, 0);
-        jPanel1.add(jLabel4, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 15;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 80;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 6, 0, 0);
-        jPanel1.add(cbVeterinario, gridBagConstraints);
-
-        txtAnnos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAnnosActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 15;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -32;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
-        jPanel1.add(txtAnnos, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 15;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 80;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
-        jPanel1.add(cbSucursal, gridBagConstraints);
-
-        txtMes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMesActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -32;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
-        jPanel1.add(txtMes, gridBagConstraints);
 
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -266,132 +223,115 @@ public class CrearHora extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.gridwidth = 12;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 7, 37, 0);
-        jPanel1.add(btnVolver, gridBagConstraints);
-
-        jLabel5.setText("Dia          Mes            Año");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 16;
-        gridBagConstraints.ipadx = 81;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 6, 0, 88);
-        jPanel1.add(jLabel5, gridBagConstraints);
-
-        jLabel6.setText("Hora :");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.ipadx = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(27, 132, 0, 0);
-        jPanel1.add(jLabel6, gridBagConstraints);
-
-        txtHora.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtHoraActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -29;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(24, 6, 0, 0);
-        jPanel1.add(txtHora, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -27;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(24, 3, 0, 0);
-        jPanel1.add(txtMinuto, gridBagConstraints);
-
-        jLabel1.setText("Ingresar Hora Nueva");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(8, 6, 0, 0);
-        jPanel1.add(jLabel1, gridBagConstraints);
-
-        jLabel7.setText(":");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.ipadx = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(27, 6, 0, 0);
-        jPanel1.add(jLabel7, gridBagConstraints);
-
-        jLabel2.setText("Fecha:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.ipadx = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 132, 0, 0);
-        jPanel1.add(jLabel2, gridBagConstraints);
-
-        jLabel8.setText("Rut Veterinario :");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(21, 84, 0, 0);
-        jPanel1.add(jLabel8, gridBagConstraints);
-
-        txtDia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDiaActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -33;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
-        jPanel1.add(txtDia, gridBagConstraints);
-
-        jLabel9.setText("Sucursal :");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 120, 0, 0);
-        jPanel1.add(jLabel9, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jButton1)
+                                .addComponent(btnVolver)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(txtDia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtMes, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtAnnos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cbVeterinario, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(41, 41, 41)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbSucursal, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(0, 88, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(132, 132, 132)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(txtAnnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(cbVeterinario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(cbSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnVolver)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDiaActionPerformed
+
+    private void txtAnnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnnosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAnnosActionPerformed
+
+    private void txtMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMesActionPerformed
+
+    private void txtHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtHoraActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+     
         String Mes = txtMes.getText();
-
+        
         String hora = txtHora.getText()+":"+txtMinuto.getText();
         String annos = txtAnnos.getText();
         if(annos.trim().length() != 0 || annos.trim().length() == 2)
@@ -401,45 +341,45 @@ public class CrearHora extends javax.swing.JFrame {
         String fecha = annos+"-"+txtMes.getText()+"-"+txtDia.getText() ;
         String rut = (String) cbVeterinario.getSelectedItem() ;
         String sucursal = (String) cbSucursal.getSelectedItem();
-
+        
         if(rut.trim().length() == 0 || hora.trim().length() == 0 || fecha.trim().length() == 0  || sucursal.trim().length() == 0 )
         {
             JOptionPane.showMessageDialog(this, "Ingrese los datos solicitados");
             return;
         }
         else{
+        
+        Controladorasistente cm = new Controladorasistente();
+        String url = "https://davydvat.pythonanywhere.com/atencion/"; // Reemplaza con la URL correcta de la API
+        String token = "4432703a71447984770c315364a7848f7d69bcc9"; 
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+      
+            HttpPost httpPost = new HttpPost(url);
+            httpPost.setHeader("Content-Type", "application/json");
+            
+            
+            String suc = cm.Sucursal(sucursal);
+            if("0".equals(suc)){
+                JOptionPane.showMessageDialog(this, "Ingrese los datos solicitados");
+            }
+            String r = cm.Rut(rut);
+            if("0".equals(r)){
+                JOptionPane.showMessageDialog(this, "Ingrese los datos solicitados");
+            }
+            String f = "\"fecha\":" + "\"" + fecha + "\"";
+            String h = "\"hora\": " + "\"" + hora + "\"";
+            String estado = "\"estado\": \"Disponible\"";
+            String rut_cli = "\"rut_cli\": \"\"";
+            String nombre_cli ="\"nombre_cli\": \"\"";
+            String telefono_cli ="\"telefono_cli\": \"\"";
+            String correo_cli ="\"correo_cli\": \"\"";
+            String motivo = "\"motivo\": \"\"";
+            String rut_vet = "\"rut_vet\":" + "\"" + r + "\"";
+            String s= "\"sucursal\":" + "\"" + suc + "\"";
+         
+            httpPost.setHeader("Authorization", "Token " + token);
 
-            Controlador cm = new Controlador();
-            String url = "https://davydvat.pythonanywhere.com/atencion/"; // Reemplaza con la URL correcta de la API
-            String token = "4432703a71447984770c315364a7848f7d69bcc9";
-            try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-                // Crear una solicitud POST
-                HttpPost httpPost = new HttpPost(url);
-                httpPost.setHeader("Content-Type", "application/json");
-
-                String suc = cm.Sucursal(sucursal);
-                if("0".equals(suc)){
-                    JOptionPane.showMessageDialog(this, "Ingrese los datos solicitados");
-                }
-                String r = cm.Rut(rut);
-                if("0".equals(r)){
-                    JOptionPane.showMessageDialog(this, "Ingrese los datos solicitados");
-                }
-                String f = "\"fecha\":" + "\"" + fecha + "\"";
-                String h = "\"hora\": " + "\"" + hora + "\"";
-                String estado = "\"estado\": \"Disponible\"";
-                String rut_cli = "\"rut_cli\": \"\"";
-                String nombre_cli ="\"nombre_cli\": \"\"";
-                String telefono_cli ="\"telefono_cli\": \"\"";
-                String correo_cli ="\"correo_cli\": \"\"";
-                String motivo = "\"motivo\": \"\"";
-                String rut_vet = "\"rut_vet\":" + "\"" + r + "\"";
-                String s= "\"sucursal\":" + "\"" + suc + "\"";
-
-                // Agregar el token de autenticación en el encabezado
-                httpPost.setHeader("Authorization", "Token " + token);
-
-                String jsonBody = "{"+
+              String jsonBody = "{"+   
                 f +"," +
                 h +"," +
                 estado +  "," +
@@ -453,46 +393,30 @@ public class CrearHora extends javax.swing.JFrame {
 
                 + "}";
 
-                // Configurar el JSON como el contenido del cuerpo de la solicitud
-                StringEntity requestEntity = new StringEntity(jsonBody);
-                httpPost.setEntity(requestEntity);
+            // Configurar el JSON como el contenido del cuerpo de la solicitud
+            StringEntity requestEntity = new StringEntity(jsonBody);
+            httpPost.setEntity(requestEntity);
 
-                // Ejecutar la solicitud POST y obtener la respuesta
-                HttpResponse response = httpClient.execute(httpPost);
-                HttpEntity responseEntity = response.getEntity();
+            // Ejecutar la solicitud POST y obtener la respuesta
+            HttpResponse response = httpClient.execute(httpPost);
+            HttpEntity responseEntity = response.getEntity();
 
-                JOptionPane.showMessageDialog(this, "Datos Ingresados");
-
-            } catch (Exception e) {
-                e.printStackTrace();
-
-            }
-
+        
+            JOptionPane.showMessageDialog(this, "Datos Ingresados");
+           
+        } catch (Exception e) {
+            e.printStackTrace();           
+        }       
+    
         }
-
+   
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void txtAnnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnnosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAnnosActionPerformed
-
-    private void txtMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMesActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         menu frm = new  menu ();
         frm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
-
-    private void txtHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtHoraActionPerformed
-
-    private void txtDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDiaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -546,7 +470,6 @@ public class CrearHora extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtAnnos;
     private javax.swing.JTextField txtDia;
     private javax.swing.JTextField txtHora;
