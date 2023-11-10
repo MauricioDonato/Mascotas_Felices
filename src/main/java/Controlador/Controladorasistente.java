@@ -23,17 +23,24 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 /**
- *
+ * Clase que contiene lógica de control para el rol de asistente en la aplicación.
+ * Proporciona métodos para validar, buscar y realizar operaciones relacionadas con asistentes.
  * @author mauri
- * Este es el controlador de la aplicación
  */
 public class Controladorasistente {
       String token = "4432703a71447984770c315364a7848f7d69bcc9";
+     /**
+     * Valida las credenciales de un asistente.
+     *
+     * @param rut    El RUT del asistente.
+     * @param contra La contraseña del asistente.
+     * @return Un valor que indica si la validación fue exitosa.
+     */
      public String Validar(String rut, String contra) {
         String url = "https://davydvat.pythonanywhere.com/asistente/login/";
      
-        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-
+        try  {
+            CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost(url);
             httpPost.setHeader("Content-Type", "application/json");
          
@@ -70,7 +77,12 @@ public class Controladorasistente {
         }
         return "0";
    }
-
+ /**
+     * Busca un asistente por su RUT.
+     *
+     * @param rut El RUT del asistente.
+     * @return El RUT del asistente encontrado.
+     */
    public String buscarPorRut(String rut) {
         String url = "https://davydvat.pythonanywhere.com/asistente/" + rut;
 
@@ -94,6 +106,15 @@ public class Controladorasistente {
         }
        return Rut_valor;
    }
+   /**
+ * Realiza una solicitud POST para agendar una atención.
+ *
+ * @param rut      El RUT del cliente.
+ * @param fecha    La fecha de la atención.
+ * @param hora     La hora de la atención.
+ * @param sucursal La sucursal donde se realizará la atención.
+ * @return Un valor que indica el resultado de la operación (éxito o fallo).
+ */
    public String Post(String rut, String fecha, String hora, String sucursal) {
         String url = "https://davydvat.pythonanywhere.com/atencion/";
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -156,7 +177,12 @@ public class Controladorasistente {
        
        
   
-   }
+   } /**
+     * Obtiene el valor asociado a un RUT.
+     *
+     * @param Sucursal_v El Sucursal del cual se quiere obtener el valor.
+     * @return El valor asociado al Sucursal.
+     */
    public String Sucursal (String Sucursal_v){
        
      String url = "https://davydvat.pythonanywhere.com/sucursal";
@@ -186,7 +212,12 @@ public class Controladorasistente {
             e.printStackTrace();
             return "0";
         }
-   } 
+   }  /**
+     * Obtiene el valor asociado a un RUT.
+     *
+     * @param Rut_v El RUT del cual se quiere obtener el valor.
+     * @return El valor asociado al RUT.
+     */
    public String Rut (String Rut_v){
        String url = "https://davydvat.pythonanywhere.com/veterinario";
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -214,7 +245,12 @@ public class Controladorasistente {
             return "0";
         }
        
-   }
+   }   /**
+     * Obtiene el valor asociado a un RUT.
+     *
+     * @param rut El RUT del cual se quiere obtener el valor.
+     * @return El valor asociado al RUT.
+     */
    public String valor_rut(String rut) {
         String url = rut;
         String Rut_valor = "";
@@ -246,6 +282,12 @@ public class Controladorasistente {
         }
        return Rut_valor;
    }
+   /**
+     * Obtiene el valor asociado a una sucursal.
+     *
+     * @param sucursal La sucursal de la cual se quiere obtener el valor.
+     * @return El valor asociado a la sucursal.
+     */
 public String valor_sucursal(String sucursal) {
          String url = sucursal;
         String sucursal_valor = "";
@@ -271,6 +313,13 @@ public String valor_sucursal(String sucursal) {
         }
        return sucursal_valor;
 }
+/**
+     * Busca todos los motivos relacionados con un procedimiento.
+     *
+     * @param proc El procedimiento para el cual se buscan motivos.
+     * @return Una lista de motivos relacionados con el procedimiento.
+     * @throws IOException Si hay un error durante la búsqueda.
+     */
  public List<Motivo> buscarTodos(String proc) throws IOException
     {
      String url = "https://davydvat.pythonanywhere.com/procedimiento/";
@@ -294,6 +343,12 @@ public String valor_sucursal(String sucursal) {
             }
 
         } 
+   /**
+     * Obtiene los horarios relacionados con una disponibilidad.
+     *
+     * @param disp La disponibilidad para la cual se buscan horarios.
+     * @return Una lista de horarios relacionados con la disponibilidad.
+     */
 public List<Horario> hora(String disp){
         String url = "https://davydvat.pythonanywhere.com/atencion/" + disp;
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -318,7 +373,12 @@ public List<Horario> hora(String disp){
             return null;
         }
     
-}
+}  /**
+     * Obtiene el nombre completo de un veterinario a partir de su RUT.
+     *
+     * @param Rut_v El RUT del veterinario.
+     * @return El nombre completo del veterinario.
+     */
  public String Nombre_vet (String Rut_v){
        String url = Rut_v;
  try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -346,6 +406,12 @@ public List<Horario> hora(String disp){
         }
        return null;
  }
+  /**
+     * Obtiene el nombre y ubicación de una sucursal a partir de su nombre.
+     *
+     * @param Nombre_suc El nombre de la sucursal.
+     * @return El nombre y la ubicación de la sucursal.
+     */
  public String Nombre_suc (String Nombre_suc){
        String url = Nombre_suc;
  try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
@@ -371,6 +437,12 @@ public List<Horario> hora(String disp){
         }
        return null;
  }
+  /**
+     * Valida si un RUT es válido.
+     *
+     * @param rut El RUT a validar.
+     * @return true si el RUT es válido, false en caso contrario.
+     */
        public static boolean validarRut(String rut) {
         if (rut == null || rut.isEmpty()) {
             return false;
